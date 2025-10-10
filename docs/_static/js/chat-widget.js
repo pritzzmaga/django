@@ -12,80 +12,89 @@
     const CHATBOT_HEADER = "MKDocs Chatbot";
 
     // --- Inject styles ---
-    const style = document.createElement("style");
-    style.textContent = `
-    .chat-widget-btn {
-      position: fixed; right: 20px; bottom: 20px; z-index: 99999;
-      width: 56px; height: 56px; border-radius: 50%;
-      background: #4f46e5; color: white; font-size: 14px; font-weight: bold;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      cursor: pointer;
+    function initWidget() {
+        const style = document.createElement("style");
+        style.textContent = `
+        .chat-widget-btn {
+          position: fixed; right: 20px; bottom: 20px; z-index: 99999;
+          width: 56px; height: 56px; border-radius: 50%;
+          background: #4f46e5; color: white; font-size: 14px; font-weight: bold;
+          display: flex; align-items: center; justify-content: center;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+          cursor: pointer;
+        }
+        .chat-widget-overlay {
+          position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+          background: rgba(0,0,0,0.3);
+          backdrop-filter: blur(6px);
+          z-index: 99998;
+          display: none;
+          align-items: center;
+          justify-content: center;
+        }
+        .chat-widget-modal {
+          background: white;
+          width: 80%;
+          max-width: 700px;
+          height: 60vh;
+          border-radius: 12px;
+          overflow: hidden;
+          position: relative;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+          display: flex;
+          flex-direction: column;
+        }
+        .chat-widget-close {
+          position: absolute;
+          top: 8px;
+          right: 12px;
+          font-size: 20px;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+        }
+        .chat-widget-iframe {
+          flex: 1;
+          border: none;
+          width: 100%;
+          height: 100%;
+        }
+      `;
+        document.head.appendChild(style);
+
+        // --- Floating button ---
+        const btn = document.createElement("button");
+        btn.className = "chat-widget-btn";
+        btn.innerText = "Chat";
+        document.body.appendChild(btn);
+
+        // --- Overlay + modal + iframe ---
+        const overlay = document.createElement("div");
+        overlay.className = "chat-widget-overlay";
+
+        const modal = document.createElement("div");
+        modal.className = "chat-widget-modal";
+
+        const closeBtn = document.createElement("button");
+        closeBtn.className = "chat-widget-close";
+        closeBtn.innerHTML = "&times;";
+
+        const iframe = document.createElement("iframe");
+        iframe.className = "chat-widget-iframe";
+        iframe.src = EMBED_URL;
+
+        modal.appendChild(closeBtn);
+        modal.appendChild(iframe);
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
     }
-    .chat-widget-overlay {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.3);
-      backdrop-filter: blur(6px);
-      z-index: 99998;
-      display: none;
-      align-items: center;
-      justify-content: center;
+
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initWidget);
+    } else {
+        initWidget();
     }
-    .chat-widget-modal {
-      background: white;
-      width: 80%;
-      max-width: 700px;
-      height: 60vh;
-      border-radius: 12px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-      display: flex;
-      flex-direction: column;
-    }
-    .chat-widget-close {
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      font-size: 20px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-    }
-    .chat-widget-iframe {
-      flex: 1;
-      border: none;
-      width: 100%;
-      height: 100%;
-    }
-  `;
-    document.head.appendChild(style);
-
-    // --- Floating button ---
-    const btn = document.createElement("button");
-    btn.className = "chat-widget-btn";
-    btn.innerText = "Chat";
-    document.body.appendChild(btn);
-
-    // --- Overlay + modal + iframe ---
-    const overlay = document.createElement("div");
-    overlay.className = "chat-widget-overlay";
-
-    const modal = document.createElement("div");
-    modal.className = "chat-widget-modal";
-
-    const closeBtn = document.createElement("button");
-    closeBtn.className = "chat-widget-close";
-    closeBtn.innerHTML = "&times;";
-
-    const iframe = document.createElement("iframe");
-    iframe.className = "chat-widget-iframe";
-    iframe.src = EMBED_URL;
-
-    modal.appendChild(closeBtn);
-    modal.appendChild(iframe);
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
 
     // --- Toggle modal ---
     btn.addEventListener("click", () => {
