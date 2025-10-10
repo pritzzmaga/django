@@ -235,7 +235,7 @@ html_theme_path = ["_theme"]
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 html_js_files = [
-    'js/chatbot-widget.js',  # Your chatbot script
+    'js/chat-widget.js',  # Your chatbot script
 ]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
