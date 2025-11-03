@@ -17,23 +17,12 @@
         const style = document.createElement("style");
         style.textContent = `
         .chat-widget-btn {
-          position: fixed;
-          right: 20px;
-          bottom: 20px;
-          z-index: 99999;
-          width: 140px;           /* Increased width for rectangular shape */
-          height: 48px;           /* Increased height */
-          border-radius: 8px;     /* Subtle rounded corners instead of 50% */
-          background: #4f46e5;
-          color: white;
-          font-size: 14px;
-          font-weight: bold;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          position: fixed; right: 20px; bottom: 20px; z-index: 99999;
+          width: 64px; height: 64px; border-radius: 50%;
+          background: #302652; color: white; font-size: 14px; font-weight: bold;
+          display: flex; align-items: center; justify-content: center;
           box-shadow: 0 4px 12px rgba(0,0,0,0.2);
           cursor: pointer;
-          border: none;           /* Good practice to explicitly set */
         }
         .chat-widget-overlay {
           position: fixed; top: 0; left: 0; right: 0; bottom: 0;
