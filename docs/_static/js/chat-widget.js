@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const script = document.createElement("script");
-    script.src = "http://demo.embed.nocten.ai/widget.js";
+    script.src = "https://embed.nocten.ai/widget.js";
     script.async = true;
 
     script.setAttribute("data-bot-id", "4");
